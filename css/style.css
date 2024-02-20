@@ -129,8 +129,8 @@ nav a:hover, nav a:focus {
 
 
 /* Step 3: Write selector/rule property to style all elements when in focus*/
-*:focus {
-  border: 2px solid #000;
+:focus {
+  border: 2px solid black;
 }
 
 
@@ -138,61 +138,59 @@ nav a:hover, nav a:focus {
 .container {
   display: grid;
   grid-template-columns: 1fr 5fr 1fr; 
-  grid-gap: 15px; 
+  row-gap: 15px; 
 }
-
 
 /* Step 5: Write selector/rule property to add the background image to the 
 first div in the grid  and place it in the grid. */
 
-.container > :first-child {
-  background-image: url('images/header.jpg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  grid-column: 1 / -1;
-}
+/*paralax etc for background*/
 
-.container > :first-child {
-  grid-column: 1 / -1; 
-  background-image: url('images/header.jpg'); 
-  background-attachment: fixed; 
-  background-repeat: no-repeat; 
-  background-size: cover; 
+.container > *:first-child {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  background: url("../images/header.jpg") center / cover no-repeat fixed;
 }
 
 /* Steps 6 and 7: Write the selector/rule properties to add place the next elements in the next
  four rows in the grid. */
 
-  /*This will be a lot of rules.... but be strategic and combine seletors*/
   .about, .method, .clients, .contact {
-    grid-column: 2 / span 1; 
+    grid-column: 2 / span 1;
   }
-  
+
+  /* grid row assignments sections*/
+
+  .about     { grid-area: 2 / 2 / 3 / 3; }
+  .method    { grid-area: 3 / 2 / 4 / 3; }
+  .clients   { grid-area: 4 / 2 / 5 / 3; }
+  .contact   { grid-area: 5 / 2 / 6 / 3; }
+
+  /* Styling for images in each section */
   .about-image, .method-image, .clients-image, .contact-image {
-    grid-column: 1 / -1; 
-    max-height: 600px; 
-    overflow: hidden; 
+    max-height: 600px;
+    overflow: hidden;
   }
-  
-  /* Assigning each element to its respective row */
-  .about, .about-image { grid-row: 2; }
-  .method, .method-image { grid-row: 3; }
-  .clients, .clients-image { grid-row: 4; }
-  .contact, .contact-image { grid-row: 5; }
+
+  .about-image   { grid-area: 2 / 1 / 3 / 4; }
+  .method-image  { grid-area: 3 / 1 / 4 / 4; }
+  .clients-image { grid-area: 4 / 1 / 5 / 4; }
+  .contact-image { grid-area: 5 / 1 / 6 / 4; }
+
 
 
  /* Step 8: Write the selector/rule property to style the .text-block class. */
 
+/* Central alignment of .text-block in containers */
 .text-block {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: center;
+  justify-self: center;
   text-align: center;
 }
 
 
 /* Add your media query here */
-@media (min-width: 800px) {
+@media screen and (min-width: 800px) {
 
 
   /* Step 9: Write the selector/rule property to style the nav element */
@@ -203,27 +201,30 @@ first div in the grid  and place it in the grid. */
     padding-left: 0;
     padding-right: 0;
   }
-
  
   /* Step 10: Write the selector/rule property to update the .container class */
-  /* .container {
-    grid-template-columns: 50px auto 500px auto 50px;
-  } */
-  
   .container {
+    display: grid;
+    grid-template-columns: 50px auto 500px auto 50px;
+  }
+
+  .container> :first-child {
+    grid-column: 1 / span 5;
+  }
+  
+  /* .container {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto; 
     grid-template-areas: 
       "content nav"; 
-  }
-
+  } */
 
   /* Steps 11 and 12: Update the grid-column property of the grid's children (where-needed)*/
-  .container {
+  /* .container {
     display: grid;
     grid-template-columns: 50px auto 500px auto 50px;
-  }
+  } */
 
   .about, 
   .clients, 
@@ -233,17 +234,18 @@ first div in the grid  and place it in the grid. */
   }
 
 
-
  /* Step 13:Write the selector/rule property to update the .text-block class */
- .text-block {
-  max-height: 250px;
-  overflow: auto;
-  }
 
+ /*step 14 15 ???*/
   .method,
   .contact,
   .about-image,
   .clients-image {
   grid-column: 2 / span 2; 
+  }
+
+  .text-block {
+    max-height: 250px;
+    overflow: auto;
   }
 }
